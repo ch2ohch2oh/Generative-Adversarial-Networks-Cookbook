@@ -5,17 +5,19 @@ from keras.models import Sequential, Model
 from keras.optimizers import Adam
 from keras.utils import plot_model
 
+
 class GAN(object):
-    def __init__(self,discriminator,generator):
+    def __init__(self, discriminator, generator):
         self.OPTIMIZER = Adam(lr=0.0002, decay=8e-9)
-        
+
         self.Generator = generator
 
         self.Discriminator = discriminator
         self.Discriminator.trainable = False
-        
+
         self.gan_model = self.model()
-        self.gan_model.compile(loss='binary_crossentropy', optimizer=self.OPTIMIZER)
+        self.gan_model.compile(loss='binary_crossentropy',
+                               optimizer=self.OPTIMIZER)
         self.save_model()
         self.summary()
 

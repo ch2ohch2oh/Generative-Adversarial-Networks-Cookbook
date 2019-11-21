@@ -8,25 +8,27 @@ from keras.models import Sequential, Model
 from keras.optimizers import Adam
 from keras.utils import plot_model
 
+
 class Generator(object):
-    def __init__(self, width = 28, height= 28, channels = 1, latent_size=100):
+    def __init__(self, width=28, height=28, channels=1, latent_size=100):
         self.W = width
         self.H = height
         self.C = channels
         self.OPTIMIZER = Adam(lr=0.0002, decay=8e-9)
 
         self.LATENT_SPACE_SIZE = latent_size
-        self.latent_space = np.random.normal(0,1,(self.LATENT_SPACE_SIZE,))
+        self.latent_space = np.random.normal(0, 1, (self.LATENT_SPACE_SIZE,))
 
         self.Generator = self.model()
-        self.Generator.compile(loss='binary_crossentropy', optimizer=self.OPTIMIZER)
+        self.Generator.compile(loss='binary_crossentropy',
+                               optimizer=self.OPTIMIZER)
         self.save_model()
         self.summary()
 
-    def model(self, block_starting_size=128,num_blocks=4):
+    def model(self, block_starting_size=128, num_blocks=4):
         model = Sequential()
-        
-        block_size = block_starting_size 
+
+        block_size = block_starting_size
         model.add(Dense(block_size, input_shape=(self.LATENT_SPACE_SIZE,)))
         model.add(LeakyReLU(alpha=0.2))
         model.add(BatchNormalization(momentum=0.8))
@@ -39,7 +41,7 @@ class Generator(object):
 
         model.add(Dense(self.W * self.H * self.C, activation='tanh'))
         model.add(Reshape((self.W, self.H, self.C)))
-        
+
         return model
 
     def summary(self):
@@ -47,4 +49,3 @@ class Generator(object):
 
     def save_model(self):
         plot_model(self.Generator.model, to_file='/data/Generator_Model.png')
-
