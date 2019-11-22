@@ -8,11 +8,11 @@ CHANNEL = 1
 LATENT_SPACE_SIZE = 100
 EPOCHS = 10000
 BATCH = 32
-CHECKPOINT = 1000
+CHECKPOINT = 500
 # MODEL_TYLE:
 #   -1: Train on all numbers from 0 to 9
 #    x: Train only for digit x. This will make the convergence faster.
-MODEL_TYPE = -1
+MODEL_TYPE = 9
 
 trainer = Trainer(height=HEIGHT,\
                  width=WIDTH,\
