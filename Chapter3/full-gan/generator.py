@@ -48,4 +48,4 @@ class Generator(object):
         return self.Generator.summary()
 
     def save_model(self):
-        plot_model(self.Generator.model, to_file='/data/Generator_Model.png')
+        plot_model(self.Generator.model, to_file='data/Generator_Model.png')

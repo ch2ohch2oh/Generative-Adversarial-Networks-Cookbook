@@ -34,5 +34,5 @@ class Discriminator(object):
         return self.Discriminator.summary()
 
     def save_model(self):
-        plot_model(self.Discriminator.model, to_file='/data/Discriminator_Model.png')
+        plot_model(self.Discriminator.model, to_file='data/Discriminator_Model.png')
 
