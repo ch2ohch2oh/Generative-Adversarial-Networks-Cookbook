@@ -50,7 +50,7 @@ class Trainer:
         self.X_train = (np.float32(self.X_train) - 127.5) / 127.5
         self.X_train = np.expand_dims(self.X_train, axis=3)
 
-    def train(self):
+    def train(self, log_every = 100):
         for e in range(self.EPOCHS):
             # Train Discriminator
             # Make the training batch for this model be half real, half noise
@@ -82,9 +82,10 @@ class Trainer:
             y_generated_labels = np.ones([self.BATCH, 1])
             generator_loss = self.gan.gan_model.train_on_batch(
                 x_latent_space_samples, y_generated_labels)
-
-            print('Epoch: '+str(int(e))+', [Discriminator :: Loss: '+str(
-                discriminator_loss)+'], [ Generator :: Loss: '+str(generator_loss)+']')
+            
+            if e % log_every == 0:
+                print('Epoch: '+str(int(e))+', [Discriminator :: Loss: '+str(
+                    discriminator_loss)+'], [ Generator :: Loss: '+str(generator_loss)+']')
 
             if e % self.CHECKPOINT == 0:
                 self.plot_checkpoint(e)
